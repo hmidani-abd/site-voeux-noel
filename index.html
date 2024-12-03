@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Noël 🎄</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+        .card {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            color: #ffeb3b;
+            margin-bottom: 20px;
+        }
+        #customMessage {
+            margin: 20px 0;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        button {
+            background-color: #ff4500;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="snow" id="snow"></div>
+    <div class="card">
+        <h1>🎄 Joyeux Noël 🎄</h1>
+        <div id="customMessage">
+            Que cette période de fêtes soit remplie de joie, d'amour et de moments magiques !
+        </div>
+        <button onclick="personnaliserVoeux()">Personnaliser mes vœux</button>
+    </div>
+
+    <script>
+        // Animation de neige
+        function createSnowflakes() {
+            const snow = document.getElementById('snow');
+            for(let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.style.width = `${Math.random() * 5}px`;
+                snowflake.style.height = snowflake.style.width;
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                snowflake.style.animationDelay = `${Math.random() * 5}s`;
+                snow.appendChild(snowflake);
+            }
+        }
+
+        // Animation des flocons
+        function animateSnowflakes() {
+            const snowflakes = document.querySelectorAll('.snowflake');
+            snowflakes.forEach(flake => {
+                flake.animate([
+                    { transform: 'translateY(0px)' },
+                    { transform: 'translateY(100vh)' }
+                ], {
+                    duration: Math.random() * 10000 + 5000,
+                    iterations: Infinity,
+                    delay: Math.random() * 5000
+                });
+            });
+        }
+
+        // Personnalisation des vœux
+        function personnaliserVoeux() {
+            const nom = prompt("Quel est votre prénom ?");
+            const personnalisation = prompt("Quel message souhaitez-vous ajouter ?");
+            
+            if (nom && personnalisation) {
+                const messagePerso = `
+                    Joyeux Noël, ${nom} ! 🎅<br>
+                    ${personnalisation}<br>
+                    Que cette période soit magique pour vous !
+                `;
+                document.getElementById('customMessage').innerHTML = messagePerso;
+            }
+        }
+
+        // Initialisation
+        createSnowflakes();
+        animateSnowflakes();
+    </script>
+</body>
+</html>
